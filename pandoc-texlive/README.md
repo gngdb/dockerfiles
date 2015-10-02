@@ -14,5 +14,5 @@ work in there:
 
 ```
 mkdir pandocspace
-docker run -it -v $PWD/pandocspac:/root gngdb/pandoc-texlive /bin/bash
+docker run -it -v $PWD/pandocspace:/root gngdb/pandoc-texlive /bin/bash
 ```
