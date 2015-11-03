@@ -12,12 +12,29 @@ then just run the container. By default it assumes the paper is called
 variable. For example:
 
 ```
-docker run -d -e "TEXFILE=gngdbpaper.tex" -v $PWD/gngdbpaper.tex:/root/gngdbpaper.tex -v $PWD/out:out gngdb/iclr2016_conference
+docker run -d -e "TEXFILE=gngdbpaper.tex" -v $PWD/gngdbpaper.tex:/root/gngdbpaper.tex -v $PWD/out:out -name texdaemon gngdb/iclr2016_conference
 ```
 
 Then, the container will run as a daemon, watching your changes to the TeX
 file and updating the output as you write. And, since it has the entire
 TeXLive distribution installed and up to date, you should always have the
 style files you need.
+
+### Warning
+
+Trying to debug LaTeX errors inside a docker container could be even more
+frustrating than it normally is, but it doesn't have to be. Using 
+`docker logs` you can watch the debug output as you recompile. For example,
+in the above command the name of the container was `texdaemon`, so:
+
+```
+docker logs texdaemon
+```
+
+And if you want to follow the logs as you make changes:
+
+```
+docker logs -f texdaemon
+```
 
 [iclr]: http://www.iclr.cc/doku.php?id=start
