@@ -20,6 +20,11 @@ file and updating the output as you write. And, since it has the entire
 TeXLive distribution installed and up to date, you should always have the
 style files you need.
 
+### Automatic updating
+
+For the automatic updating to work you might need to `chmod` your `.tex`
+file to `664`, [due to the way mounting volumes works with docker][thread].
+
 ### Warning
 
 Trying to debug LaTeX errors inside a docker container could be even more
@@ -38,3 +43,4 @@ docker logs -f texdaemon
 ```
 
 [iclr]: http://www.iclr.cc/doku.php?id=start
+[thread]: https://forums.docker.com/t/modify-a-file-which-mount-as-a-data-volume-but-it-didnt-change-in-container/2813/13
