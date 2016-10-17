@@ -12,7 +12,9 @@ RUN useradd -m -g users flask
 WORKDIR /home/flask
 
 ADD https://raw.githubusercontent.com/chuanshi/slacklatex/master/main.py main.py
-ADD https://raw.githubusercontent.com/chuanshi/slacklatex/master/template.tex template.tex
+ADD https://gist.githubusercontent.com/gngdb/7b0008a49978dfa4c444f49082789874/raw/ed78bb91045573babe46b64740fcf26ae153fb32/gistfile1.txt template.tex
+RUN mkdir -p texmf/tex/latex/shortbold
+ADD http://arxmliv.kwarc.info/sty/shortbold.sty texmf/tex/latex/shortbold/shortbold.sty
 ADD config.ini config.ini
 RUN chown flask:users *
 
