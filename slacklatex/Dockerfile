@@ -1,21 +1,22 @@
-FROM node:argon
+FROM ubuntu:latest
 
-# install dependencies
-RUN npm install fs &\
-    npm install request &\
-    npm install websocket
+# dependencies
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository main &&\
+    add-apt-repository universe &&\
+    apt-get update &&\
+    apt-get install -y python3-flask python3-requests texlive imagemagick texlive-latex-extra
 
-# make a new user called node
-RUN useradd -m -g users node
-WORKDIR /home/node
+# make user to run server
+RUN useradd -m -g users flask
+WORKDIR /home/flask
 
-# add the bot.js
-ADD https://raw.githubusercontent.com/sand500/SlackLateX/master/bot.js bot.js
-# add the secret.txt
-ADD secret.txt secret.txt
-# fix ownership problem
-RUN chown node:users *
+ADD https://raw.githubusercontent.com/chuanshi/slacklatex/master/main.py main.py
+ADD https://raw.githubusercontent.com/chuanshi/slacklatex/master/template.tex template.tex
+ADD config.ini config.ini
+RUN chown flask:users *
 
-USER node
-# run the service
-CMD ["node", "bot.js"]
+EXPOSE 5000
+
+USER flask
+CMD ["python3", "main.py"]
